@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>/WEB-INF/classes/email.properties</value>
+			</list>
+		</property>
+	</bean>
+	<!-- database connect config -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName">
+			<value>${database.driver}</value>
+		</property>
+		<property name="url">
+			<value>${database.url}</value>
+		</property>
+		<property name="username">
+			<value>${database.username}</value>
+		</property>
+		<property name="password">
+			<value>${database.password}</value>
+		</property>
+		<property name="defaultAutoCommit">
+			<value>true</value>
+		</property>
+		<property name="maxActive">
+			<value>30</value>
+		</property>
+		<property name="maxIdle">
+			<value>10</value>
+		</property>
+		<property name="maxWait">
+			<value>100</value>
+		</property>
+		<property name="validationQuery">
+			<value>SELECT 1</value>
+		</property>
+		<property name="testWhileIdle">
+			<value>true</value>
+		</property>
+		<property name="timeBetweenEvictionRunsMillis">
+			<value>3600000</value>
+		</property>
+		<property name="minEvictableIdleTimeMillis">
+			<value>18000000</value>
+		</property>
+		<property name="testOnBorrow">
+			<value>true</value>
+		</property>
+	</bean>
+
+
+	<!-- remoteDatabase connect config -->
+	<bean id="remoteDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName">
+			<value>${remote.driver}</value>
+		</property>
+		<property name="url">
+			<value>${remote.url}</value>
+		</property>
+		<property name="username">
+			<value>${remote.username}</value>
+		</property>
+		<property name="password">
+			<value>${remote.password}</value>
+		</property>
+		<property name="validationQuery">
+			<value>SELECT 1</value>
+		</property>
+		<property name="testWhileIdle">
+			<value>true</value>
+		</property>
+		<property name="timeBetweenEvictionRunsMillis">
+			<value>3600000</value>
+		</property>
+		<property name="minEvictableIdleTimeMillis">
+			<value>18000000</value>
+		</property>
+		<property name="testOnBorrow">
+			<value>true</value>
+		</property>
+	</bean>
+
+
+
+	<!--HibernateTransactionManager -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<!-- sessionFactory -->
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager" ref="transactionManager" />
+		<!-- transactionAttributes -->
+		<property name="transactionAttributes">
+			<props>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="findAll*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="beanNames">
+			<list>
+				<value>*Dao</value>
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>transactionInterceptor</value>
+			</list>
+		</property>
+	</bean>
+
+
+
+	<!-- email config -->
+	<bean id="emailInfo" class="com.perficient.bcten.entity.EmailInfo">
+		<property name="username">
+			<value>${email.username}</value>
+		</property>
+		<property name="password">
+			<value>${email.password}</value>
+		</property>
+		<property name="fromAddress">
+			<value>${email.fromAddress}</value>
+		</property>
+		<property name="defaultToAddress">
+			<value>${email.defaultToAddress}</value>
+		</property>
+		<property name="defaultContent">
+			<value>${email.defaultContent}</value>
+		</property>
+		<property name="defaultSubject">
+			<value>${email.defaultSubject}</value>
+		</property>
+	</bean>
+
+
+	<bean id="casAuthenticationFilter" class="org.jasig.cas.client.authentication.AuthenticationFilter">
+		<property name="casServerLoginUrl">
+			<value>${cas.login.url}</value>
+		</property>
+		<property name="serverName">
+			<value>${server.name}</value>
+		</property>
+	</bean>
+
+	<bean id="casValidationFilter" class="com.perficient.bcten.util.filter.MyCasValidatorFilter">
+		<property name="ticketValidator" ref="Cas20ServiceTicketValidator" />
+		<property name="userService" ref="userService" />
+		<property name="useSession" value="true" />
+		<property name="serverName" value="${server.name}" />
+		<property name="redirectAfterValidation" value="true" />
+	</bean>
+
+	<bean id="Cas20ServiceTicketValidator" class="org.jasig.cas.client.validation.Cas20ServiceTicketValidator">
+		<constructor-arg index="0">
+			<value>${cas.validate.url}</value>
+		</constructor-arg>
+		<property name="encoding" value="UTF-8" />
+	</bean>
+
+	<bean id="casHttpServletRequestWrapperFilter" class="org.jasig.cas.client.util.HttpServletRequestWrapperFilter" />
+
+
+	<import resource="daoBean.xml" />
+	<import resource="serviceBean.xml" />
+	<import resource="actionBean.xml" />
+	<import resource="sessionFactoryBean.xml" />
+	<import resource="remoteDB.xml" />
+
+
+
+
+</beans>

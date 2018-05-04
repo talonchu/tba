@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- configure Action -->
+	<bean id="userAction" class="com.perficient.bcten.action.UserAction"
+		scope="prototype">
+		<property name="userService" ref="userService" />
+	</bean>
+	<bean id="requestAction" class="com.perficient.bcten.action.RequestAction"
+		scope="prototype">
+		<property name="requestService" ref="requestService"></property>
+		<property name="notEligibleEmployeeService" ref="notEligibleEmployeeService"></property>
+		<property name="relationService" ref="relationService"></property>
+		<property name="percost">
+			<value>90.0</value>
+		</property>
+	</bean>
+
+	<bean id="emailLinkAction" class="com.perficient.bcten.action.EmailLinkAction"
+		scope="prototype">
+		<property name="reEditInfoService" ref="reEditInfoService"></property>
+	</bean>
+
+	<bean id="requestListAction" class="com.perficient.bcten.action.RequestListAction"
+		scope="prototype">
+		<property name="userService" ref="userService"></property>
+		<property name="requestListService" ref="requestListService"></property>
+		<property name="emailService" ref="emailService"></property>
+		<property name="approverService" ref="approverService"></property>
+		<property name="hosturl">
+			<value>${email.submitlink}</value>
+		</property>
+	</bean>
+
+	<bean id="employeeAction" class="com.perficient.bcten.action.EmployeeAction"
+		scope="prototype">
+		<property name="reEditInfoService" ref="reEditInfoService"></property>
+		<property name="employeeService" ref="employeeService"></property>
+	</bean>
+	<bean id="sendEmailAction" class="com.perficient.bcten.action.SendEmailAction"
+		scope="prototype">
+		<property name="emailService" ref="emailService"></property>
+		<property name="approverService" ref="approverService"></property>
+		<property name="hosturl">
+			<value>${email.submitlink}</value>
+		</property>
+	</bean>
+
+	<!-- <bean id="permissionAction" class="com.perficient.bcten.action.PermissionAction"> 
+		<property name="permissionService" ref="permissionService"></property> </bean> -->
+</beans>

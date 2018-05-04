@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+	<!-- configure DAO -->
+	<bean id="requestDao" class="com.perficient.bcten.dao.impl.RequestDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="sqlProvider" ref="sqlProvider" />
+	</bean>
+	<bean id="relationDao" class="com.perficient.bcten.dao.impl.RelationDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="employeeDao" class="com.perficient.bcten.dao.impl.EmployeeDaoImpl">
+		<property name="sessionFactory" ref="remoteSessionFactory" />
+	</bean>
+	<bean id="notEligibleEmployeeDao"
+		class="com.perficient.bcten.dao.impl.NotEligibleEmployeeDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="permissionDao" class="com.perficient.bcten.dao.impl.PermissionDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="reEditInfoDao" class="com.perficient.bcten.dao.impl.ReEditInfoDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="approverDao" class="com.perficient.bcten.dao.impl.ApproverDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+
+</beans>

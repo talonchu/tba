@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE struts PUBLIC     
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"     
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="log" extends="struts-default">
+		<interceptors>
+			<interceptor name="emailIntercepter" class="com.perficient.bcten.util.interceptor.EmailInterceptor">
+			</interceptor>
+			<interceptor-stack name="emailStack">
+				<interceptor-ref name="emailIntercepter" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		<global-results>
+			<result name="toLogin">/pages/login.jsp</result>
+		</global-results>
+		<!-- userAction configure -->
+		<action name="loginAction" method="login" class="userAction">
+			<result name="success" type="chain">requestListAction</result>
+			<result name="emailLinkAction" type="chain">emailLinkAction</result>
+			<result name="error">pages/login.jsp</result>
+			<result name="input">pages/login.jsp</result>
+		</action>
+
+		<action name="logoutAction" method="logout" class="userAction">
+			<result name="success" type="redirect">${cas.logout.url}</result>
+			<result name="error">pages/login.jsp</result>
+			<result name="input">pages/login.jsp</result>
+		</action>
+		<action name="emailLinkAction" method="isLogin" class="emailLinkAction">
+			<interceptor-ref name="emailStack"></interceptor-ref>
+			<result name="toDetail" type="chain">requestDetailAction</result>
+			<result name="toEdit" type="chain">reEditAction</result>
+			<result name="error">pages/error.jsp</result>
+		</action>
+	</package>
+
+	<package name="struts2" extends="struts-default">
+		<!-- intercepter -->
+		<interceptors>
+			<interceptor-stack name="tbaStack">
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="tbaStack"></default-interceptor-ref>
+		<global-results>
+			<result name="toLogin">/pages/login.jsp</result>
+		</global-results>
+		<action name="requestAction" method="submit" class="requestAction">
+			<result name="success" type="chain">sendEmailAction</result>
+			<result name="error">pages/requestList.jsp</result>
+		</action>
+
+		<action name="sendEmailAction" method="send" class="sendEmailAction">
+			<result name="success" type="chain">requestListAction</result>
+			<result name="error">pages/requestList.jsp</result>
+		</action>
+
+		<!-- requestListAction configure -->
+		<action name="requestListAction" method="init" class="requestListAction">
+			<result name="success">pages/requestList.jsp</result>
+			<result name="error">pages/login.jsp</result>
+			<result name="input">pages/login.jsp</result>
+		</action>
+		<action name="approveRequestAction" method="approve" class="requestListAction">
+			<result name="success" type="chain">requestListAction</result>
+			<result name="error">pages/requestList.jsp</result>
+		</action>
+		<action name="rejectRequestAction" method="reject" class="requestListAction">
+			<result name="success" type="chain">requestListAction</result>
+			<result name="error">pages/requestList.jsp</result>
+		</action>
+		<action name="repealApprovedAction" method="repeal" class="requestListAction">
+			<interceptor-ref name="tbaStack" />
+			<result name="success" type="chain">requestListAction</result>
+			<result name="error">pages/requestList.jsp</result>
+		</action>
+
+		<!-- EmployeeAction configure -->
+		<action name="employeeAction" method="getMarkedEmployees" class="employeeAction">
+			<result name="success">pages/request.jsp</result>
+			<result name="error">pages/login.jsp</result>
+			<result name="input">pages/login.jsp</result>
+		</action>
+		<!-- ReEditAction configure -->
+		<action name="reEditAction" method="reEdit" class="employeeAction">
+			<result name="success">pages/requestReEdit.jsp</result>
+			<result name="error">pages/login.jsp</result>
+			<result name="input">pages/login.jsp</result>
+		</action>
+
+
+
+		<!-- requestDetail configure -->
+		<action name="requestDetailAction" method="requestDetail" class="employeeAction">
+			<result name="success">pages/requestDetail.jsp</result>
+			<result name="error">pages/no-permission.jsp</result>
+			<result name="input">pages/login.jsp</result>
+		</action>
+		<!-- reSubmitAction configure -->
+		<action name="reSubmitAction" method="reSubmit" class="requestAction">
+			<result name="success" type="chain">sendEmailAction</result>
+			<result name="error" type="chain">reEditAction</result>
+			<result name="input">pages/login.jsp</result>
+		</action>
+
+		<!-- other Action configure -->
+
+
+
+	</package>
+</struts>

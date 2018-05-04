@@ -1,0 +1,299 @@
+
+body {
+	text-align: center;
+	font-family: Arial, Helvetica, sans-serif;
+	padding: 0;
+	font-size: 12px;
+	margin: 0px 0 0 0;
+	color: #000000;
+}
+#wrap {
+	width: 1000px;
+}
+
+.header {
+	width: 1000px;
+	height: 181px;
+	position:relative;
+	background: url(../img/topbg.jpg) no-repeat;
+}
+/*----------------------------logInfo-----------------*/
+.logInfo{
+	font-weight: bold;
+	width:400px;
+	height:40px;
+	position: relative;
+	top: 120px;
+	float: right;
+	text-align: right;
+	
+}
+.logInfo span{
+	color:brown;
+}
+.logInfo a{
+	color:black;
+	text-decoration: none;
+}
+.logInfo a:hover{
+	color:brown;
+	text-decoration: none;
+}
+#memberTable td{
+	font-size: 4px;
+}
+/*-----------------------------menu-------------------*/
+#menu {
+	font-weight: bold;
+	width: 1000px;
+	height: 41px;
+	position: absolute;
+	left:0px;
+	top: 140px;
+	background-color: #A52A2A;
+}
+
+#menu ul {
+	display: block;
+	list-style: none;
+	padding: 9px 0 0 10px;
+	margin: 0px;
+}
+
+#menu ul li {
+	color: #fff;
+	display: inline;
+	padding: 0px;
+	margin: 0px;
+	height: 27px;
+}
+
+#menu ul li a {
+	height: 27px;
+	display: block;
+	padding: 0px 10px 0 10px;
+	margin: 0 4px 0 4px;
+	_margin: 0 2px 0 2px;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	color: #fff;
+	font-size: 13px;
+	line-height: 27px;
+}
+
+#menu ul li.selected a {
+	height: 27px;
+	display: block;
+	padding: 0px 10px 0 10px;
+	margin: 0 5px 0 5px;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	color: #000;
+	font-size: 13px;
+	line-height: 27px;
+}
+
+
+
+#menu ul li a:hover {
+	color: #000;
+}
+/*---------------footer------------------------*/
+.footer {
+	height: 100px;
+}
+
+
+.text_calendar{
+	background:url(../img/calendar.gif) no-repeat right;
+}
+
+/*---------------login------------------------*/
+.login_table {
+	border: 1px solid #CCC;
+	height: 22px;
+	font-size: 14px;
+	line-height: 22px;
+}
+
+.login_input {
+	border: 1px solid #CCC;
+	height: 22px;
+	font-size: 14px;
+	line-height: 22px;
+}
+
+.login_btn {
+	cursor:pointer;
+	border: solid 1;
+	width: 85px;
+	height: 25px;
+	font-weight: bold;
+	color: #fff;
+	background: url(../img/login_tb_top.png) repeat-x;
+}
+
+.login_btn a:hover {
+	cursor: hand;
+}
+
+/*---------------request------------------------*/
+.req_tb {
+	border: 0px;
+	width: 885px;
+	line-height: 22px;
+	border-collapse: collapse;
+}
+
+.req_tb td {
+	font-size: 14px;
+	font-weight: bold;
+	border: 0px;
+	height: 20px;
+	padding: 2px;
+}
+
+
+.req_info {
+	padding-top: 9px;
+	text-align: left;
+	width: 885px;
+	font-weight: bold;
+	font-size: 18px;
+	height: 25px;
+	padding-left:5px
+}
+.req_info a {
+	padding-left: 65px;
+	text-align: left;
+	color: brown;
+}
+.req_info span {
+	padding-top: 9px;
+	text-align: left;
+	font-size: 17px;
+	color: brown;
+}
+
+.req_btn {
+	z-index: 3;
+	cursor:pointer;
+	border: 0px;
+	width: 90px;
+	height: 25px;
+	font-size: 14px;
+	font-weight: bold;
+	background-color: brown;
+	color: #fff;
+}
+
+/*---------------requestlist------------------------*/
+.reqls_tb {
+	border: 1px solid brown;
+	width: 1000px;
+	line-height: 22px;
+	border-collapse: collapse;
+}
+
+.reqls_tb th {
+	font-size: 14px;
+	font-weight: bold;
+	border: 1px solid brown;
+	height: 45px;
+	padding: 0;
+	text-align: center;
+	background-color: #BEBEBE;
+}
+
+.reqls_tb tr:hover{
+	background-color :  #FFECF5;
+	cursor: pointer;
+}
+
+.reqls_tb td {
+	font-size: 14px;
+	border: 1px solid brown;
+	height: 45px;
+	padding: 0;
+	text-align: center;
+}
+
+.reqls_page {
+	font-size: 16px;
+	font-weight: bold;
+	border: none;
+	height: 45px;
+	padding: 0;
+}
+.reqls_page span{
+	color: brown;
+	font-size: 16px;
+	font-weight: bold;
+	height: 45px;
+	padding: 0;
+}
+.reqls_page a{
+	height: 14px;
+	text-decoration: none;
+}
+
+.reason {
+	width: 400px;
+	height: 250px;
+	font-size: 14px;
+	font-weight: bold;
+	border: 2px solid #000;
+	position: absolute;
+	top: 200px;
+	left: 35%;
+	z-index: 3;
+	display: none;
+	background-color: white;
+}
+
+.approveOperation {
+	width: 300px;
+	height: 80px;
+	font-size: 14px;
+	font-weight: bold;
+	border: 2px solid #000;
+	position: absolute;
+	top: 200px;
+	left: 35%;
+	z-index: 3;
+	background-color: white;
+}
+
+.reason_tbn {
+	border: solid 1;
+	width: 85px;
+	height: 25px;
+	font-weight: bold;
+	color: #fff;
+	background: url(../img/login_tb_top.png) repeat-x;
+	cursor:pointer;
+}
+
+.lock_div {
+	filter: alpha(opacity = 50);
+	-moz-opacity: 0.5;
+	-khtml-opacity: 0.5;
+	opacity: 0.5;
+	position: absolute;
+	display: none;
+	top: 0px;
+	left: 0px;
+	z-index: 2;
+	width: 100%;
+	height: 2000px;
+	background-color: gray;
+}
+#loadingdiv{
+	position: absolute;
+	top:40%;
+	left:40%;
+	z-index:999;
+	display: none;
+}

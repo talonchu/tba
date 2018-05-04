@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>  
+  
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.1//EN"  
+  
+        "http://tuckey.org/res/dtds/urlrewrite3.1.dtd">  
+  
+<urlrewrite>  
+  
+       <rule>  
+  
+              <from>^/[0-9]/[0-9]/[0-9]/(.*)</from>  
+  
+              <to type="redirect">requestListAction?status=$1&amp;page.curPage=$2&amp;sortStatus=$3&amp;column=$4</to>  
+  
+       </rule>  
+  
+</urlrewrite>  

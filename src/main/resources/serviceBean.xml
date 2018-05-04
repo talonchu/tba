@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+	<!-- configure Service -->
+	<bean id="userService" class="com.perficient.bcten.service.impl.UserServiceImpl">
+		<property name="permissionDao" ref="permissionDao" />
+		<property name="version">
+			<value>${version}</value>
+		</property>
+	</bean>
+	<bean id="approverService" class="com.perficient.bcten.service.impl.ApproverServiceImpl">
+		<property name="approverDao" ref="approverDao" />
+	</bean>
+
+	<bean id="requestService" class="com.perficient.bcten.service.impl.RequestServiceImpl">
+		<property name="requestDao" ref="requestDao"></property>
+		<property name="relationDao" ref="relationDao"></property>
+	</bean>
+	<bean id="notEligibleEmployeeService" class="com.perficient.bcten.service.impl.NotEligibleEmployeeServiceImpl">
+		<property name="notEligibleEmployeeDao" ref="notEligibleEmployeeDao"></property>
+	</bean>
+	
+
+
+	<bean id="relationService" class="com.perficient.bcten.service.impl.RelationServiceImpl">
+		<property name="relationDao" ref="relationDao"></property>
+	</bean>
+
+	<bean id="employeeService" class="com.perficient.bcten.service.impl.EmployeeServiceImpl">
+		<property name="employeeDao" ref="employeeDao"></property>
+		<property name="notEligibleEmployeeDao" ref="notEligibleEmployeeDao"></property>
+	</bean>
+	
+	<!-- reEditInfoService-->
+	<bean id="reEditInfoService" class="com.perficient.bcten.service.impl.ReEditInfoServiceImpl">
+		<property name="reEditInfoDao" ref="reEditInfoDao"></property>
+	</bean>
+
+	<bean id="requestListService"
+		class="com.perficient.bcten.service.impl.RequestListServiceImpl">
+		<property name="requestDao" ref="requestDao"></property>
+	</bean>
+	
+	<bean id="emailService" class="com.perficient.bcten.service.impl.EmailServiceImpl">
+		<property name="emailInfo" ref="emailInfo"></property>
+		<property name="requestListService" >
+			<ref local="requestListService"/>
+		</property>
+		<property name="properties">
+			<map>
+				<entry key="mail.smtp.host" value="10.128.128.196" />
+				<entry key="mail.smtp.port" value="25" />
+				<entry key="mail.smtp.auth" value="false" />
+			</map>
+		</property>
+	</bean>
+	<!-- sqlProviderService-->
+	<bean id="sqlProvider" class="com.perficient.bcten.util.SqlProvider">
+	</bean>
+
+</beans>
